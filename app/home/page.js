@@ -1,9 +1,12 @@
+"use client";
 import React from "react";
 import { toastSuccess } from "../utils/theme";
 import styles from "./page.module.scss";
 import Navbar from "../components/Navbar";
+import { useRouter } from "next/navigation";
 
 function Home() {
+  const router = useRouter();
   return (
     <div>
       <Navbar />
@@ -23,7 +26,14 @@ function Home() {
             <p className="mb-5  hover:text-white hover:tracking-wide transition-all">
               This is a shopping website mockup for Xenonstack Assignment
             </p>
-            <button className="btn btn-primary">Get Started</button>
+            <button
+              className="btn btn-primary"
+              onClick={() => {
+                router.push("/items");
+              }}
+            >
+              Get Started
+            </button>
           </div>
         </div>
       </div>
