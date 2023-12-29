@@ -1,0 +1,41 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.container {
+  width: 25vw;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  background-color: white;
+  color: black;
+  border-radius: 1rem;
+
+  .footer {
+    display: flex;
+    flex-direction: row;
+    font-size: 0.765rem;
+    font-weight: 400;
+    justify-content: center;
+    gap: 5px;
+    margin-bottom: 1rem;
+
+    .link {
+      color: #5e6e86;
+      cursor: pointer;
+    }
+  }
+
+  .error {
+    display: flex;
+    color: red;
+    flex-direction: row;
+    font-size: 0.765rem;
+    font-weight: 400;
+    justify-content: center;
+    gap: 5px;
+    margin-bottom: 1rem;
+  }
+}
