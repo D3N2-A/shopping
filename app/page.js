@@ -25,7 +25,7 @@ export default function Home() {
   useEffect(() => {
     authRef.onAuthStateChanged((user) => {
       if (user) {
-        router.push("/configure");
+        router.push("/home");
       } else {
         return;
       }
