@@ -1,7 +1,47 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import Navbar from "../components/Navbar";
+import { db } from "../../connector/firebase";
+import { doc, setDoc } from "firebase/firestore";
+import { toast } from "react-toastify";
+import { toastSuccess } from "../utils/theme";
 
 function Contact() {
+  const defaultFormData = {
+    gname: "",
+    title: "",
+    message: "",
+  };
+
+  const [formData, setFormData] = useState(defaultFormData);
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (e) => {
+    setFormData((prev) => {
+      return { ...prev, [e.target.name]: e.target.value };
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    setLoading(true);
+    e.preventDefault();
+    let data = {
+      name: formData?.gname,
+      title: formData?.title,
+      message: formData?.message,
+      createdAt: Date.now(),
+    };
+    setDoc(doc(db, "messages", self.crypto.randomUUID()), data)
+      .then(() => {
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    setFormData(defaultFormData);
+    toast.success("Message Sent", toastSuccess);
+    console.log(data);
+  };
   return (
     <div>
       <Navbar />
@@ -22,8 +62,11 @@ function Contact() {
                 </label>
                 <input
                   type="text"
-                  placeholder="Name"
+                  name="gname"
+                  value={formData.gname}
+                  placeholder="Your name"
                   className="input input-bordered"
+                  onChange={handleChange}
                   required
                 />
               </div>
@@ -33,8 +76,11 @@ function Contact() {
                 </label>
                 <input
                   type="text"
-                  placeholder="Title"
+                  placeholder="title"
+                  name="title"
+                  value={formData.title}
                   className="input input-bordered"
+                  onChange={handleChange}
                   required
                 />
               </div>
@@ -44,11 +90,26 @@ function Contact() {
                 </label>
                 <textarea
                   className="textarea textarea-bordered"
+                  value={formData.message}
+                  name="message"
+                  onChange={handleChange}
                   placeholder="Content"
                 ></textarea>
               </div>
               <div className="form-control mt-6">
-                <button className="btn btn-outline btn-primary">Send</button>
+                <button
+                  className="btn btn-outline btn-primary"
+                  onClick={(e) => {
+                    handleSubmit(e);
+                  }}
+                  disabled={loading}
+                >
+                  {loading ? (
+                    <span className="loading loading-infinity loading-sm"></span>
+                  ) : (
+                    "Send"
+                  )}
+                </button>
               </div>
             </form>
           </div>

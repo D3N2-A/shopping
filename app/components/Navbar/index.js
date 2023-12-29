@@ -2,6 +2,7 @@
 import { useRouter } from "next/navigation";
 import { auth } from "../../../connector/firebase";
 import React from "react";
+import { ToastContainer } from "react-toastify";
 
 function Navbar() {
   const router = useRouter();
@@ -59,6 +60,7 @@ function Navbar() {
       >
         <a className="btn">Log out</a>
       </div>
+      <ToastContainer />
     </div>
   );
 }
